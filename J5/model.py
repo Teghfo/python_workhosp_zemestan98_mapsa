@@ -29,12 +29,12 @@ class Product:
         self.serial_num = uuid.uuid4()
         self.name = name
         self.price = price
-        self.comment = []
+        self.comments = []
         self.seller = seller
         self.category = category
 
     def add_comment(self, comment):
-        self.comment.append(comment)
+        self.comments.append(comment)
 
     @staticmethod
     def id_gen():
