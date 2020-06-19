@@ -3,13 +3,12 @@ from model import User, Product, Comment
 users = []
 products = {}  # {productid: [product, count]}
 
+# def add_product(product, count):
+#     if product.id in products.keys():
+#         products[product.id][1] + count
 
-def add_product(product, count):
-    if product.id in products.keys():
-        products[product.id][1] + count
-
-    else:
-        products[product.id] = [product, count]
+#     else:
+#         products[product.id] = [product, count]
 
 
 def remove_product(product, count):
@@ -23,12 +22,15 @@ def remove_product(product, count):
         print('be andazei ke mikhay nadarim')
 
 
-def generate_product(name, price, seller, category):
-    for product in products.keys():
-        if product.name == name:
-            return product
+def generate_add_product(name, price, seller, category, new_count):
+    for product_id, value_products in products.items():
+        if value_products[0].name == name:
+            value_products[1] += new_count
+            return value_products[0]
 
-    return Product(name, price, seller, category)
+    new_product = Product(name, price, seller, category)
+    products[new_product.id] = [new_product, new_count]
+    return new_product
 
 
 def add_user(username, tel):
@@ -83,21 +85,19 @@ def user_comments(username):
 
 
 if __name__ == '__main__':
-    product1 = generate_product('souVaSoun', 5000, 'Masoumeh',
-                                Product._category[0])
-    product2 = generate_product('GhaleHeivanat', 70000, 'Ali',
-                                Product._category[0])
-    product3 = generate_product('kash vaghti 20salam boud midanestam', 50000,
-                                'Saeed', Product._category[0])
-    product4 = generate_product('LG', 50000000000, 'Babak',
-                                Product._category[1])
-    product5 = generate_product('Royal', 500000, 'Ashkan',
-                                Product._category[3])
+    product1 = generate_add_product('souVaSoun', 5000, 'Masoumeh',
+                                    Product._category[0], 12)
+    product2 = generate_add_product('GhaleHeivanat', 70000, 'Ali',
+                                    Product._category[0], 10)
+    product3 = generate_add_product('kash vaghti 20salam boud midanestam',
+                                    50000, 'Saeed', Product._category[0], 8)
+    product4 = generate_add_product('LG', 50000000000, 'Babak',
+                                    Product._category[1], 7)
+    product5 = generate_add_product('Royal', 500000, 'Ashkan',
+                                    Product._category[3], 6)
 
-    add_product(product1, 12)
-    add_product(product2, 2)
-    add_product(product3, 6)
-    add_product(product4, 9)
+    product5 = generate_add_product('Royal', 500000, 'Ashkan',
+                                    Product._category[3], 5)
 
     add_user('ashkan', 912)
     add_user('kasra', 913)
@@ -118,6 +118,8 @@ if __name__ == '__main__':
 
     show_comments(product1)
 
-    for comment in user_comments('ashkan'):
-        for key, value in comment.items():
-            print(f'{key}  ---- comment: {value.matn}')
+    # for comment in user_comments('ashkan'):
+    #     for key, value in comment.items():
+    #         print(f'{key}  ---- comment: {value.matn}')
+
+    print(products)
