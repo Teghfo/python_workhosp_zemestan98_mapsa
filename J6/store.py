@@ -1,4 +1,11 @@
 from model import User, Product, Comment
+import logging
+logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s',
+                    filename='example.log',
+                    level=logging.DEBUG)
+
+logging.warning('hello')
+logging.error('hello error')
 
 users = []
 products = {}  # {productid: [product, count]}
